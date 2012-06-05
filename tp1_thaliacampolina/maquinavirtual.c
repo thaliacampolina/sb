@@ -20,7 +20,6 @@ MaquinaVirtual STORE(MaquinaVirtual MV){
     return(MV);
 }
 //03
-    //instruc[SP_] = instruc[M];
 MaquinaVirtual PUSH(MaquinaVirtual MV){
     int M=MV.RAM_[MV.PC_];
     MV.PC_=MV.PC_+1;
