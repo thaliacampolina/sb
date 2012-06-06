@@ -6,14 +6,14 @@
 
 void executaOperacoes(MaquinaVirtual MV, int verbose){
     
-    int i=(MV.PC_-1);
+    MV.PC_--;
 printf("pc inicial: %d \n",MV.PC_);
     int instrucao;
 	
     while(1) {
         MV.PC_++;
 	instrucao=MV.RAM_[MV.PC_];
-printf("pc na %da iteracao: %d \ninstrucao: %d \nM:%d \n",i+1, MV.PC_, MV.RAM_[i],MV.RAM_[MV.PC_]);
+printf("pc na %da iteracao: %d \ninstrucao: %d \nM:%d \n",MV.PC_, MV.PC_, MV.RAM_[MV.PC_],MV.RAM_[MV.PC_]);
 
     //INTRUCTION LOAD
     if(instrucao==1){
