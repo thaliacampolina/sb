@@ -150,7 +150,7 @@ MaquinaVirtual READ(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
     printf("Insira um numero inteiro: ");
-    scanf("%d",&MV.RAM_[M]);
+    scanf("%d",&(MV.RAM_[M]));
     return(MV);
 }
 //19

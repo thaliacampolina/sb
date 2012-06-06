@@ -6,18 +6,20 @@
 
 void executaOperacoes(MaquinaVirtual MV, int verbose){
     
-    int i=MV.PC_;
+    int i=(MV.PC_-1);
+printf("pc inicial: %d \n",MV.PC_);
     int instrucao;
 	
     while(1) {
         int i = MV.PC_++;
 	instrucao=MV.RAM_[i];
+printf("pc na %da iteracao: %d \ninstrucao: %d \nM:%d \n",i+1, MV.PC_, MV.RAM_[i],MV.RAM_[MV.PC_]);
 
-    //INTRUCTION JMP
+    //INTRUCTION LOAD
     if(instrucao==1){
-        MV=JMP(MV);
+        MV=LOAD(MV);
         if(verbose==1){
-            printf("Executando o JMP \n ");
+            printf("Executando o LOAD \n ");
             printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
@@ -271,7 +273,7 @@ int main (int argc, char* argv[]) {
         return 0;
     } else {
 
-//inicializa maquina virtual, memoria=0
+//inicializa maquina virtual, memoria default=0
         MV.PC_=atoi(argv[1]);
         MV.SP_=atoi(argv[2]);
         MV.AC_=0;
