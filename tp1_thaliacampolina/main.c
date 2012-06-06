@@ -7,14 +7,17 @@
 void executaOperacoes(MaquinaVirtual MV, int verbose){
     
     int i=MV.PC_;
-    int instrucao=MV.RAM_[i];
+    int instrucao;
+	
+    for(i=MV.PC_;i<1000;i++) {
+	instrucao=MV.RAM_[i];
 
     //INTRUCTION JMP
     if(instrucao==1){
         MV=JMP(MV);
         if(verbose==1){
             printf("Executando o JMP \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -24,7 +27,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=STORE(MV);
         if(verbose==1){
             printf("Executando o STORE \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -34,7 +37,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=PUSH(MV);
         if(verbose==1){
             printf("Executando o PUSH \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -44,7 +47,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=POP(MV);
         if(verbose==1){
             printf("Executando o POP \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -55,7 +58,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=JMP(MV);
         if(verbose==1){
             printf("Executando o JMP \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -66,7 +69,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=JPG(MV);
         if(verbose==1){
             printf("Executando o JPG \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -77,7 +80,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=JPGE(MV);
         if(verbose==1){
             printf("Executando o JPGE \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -88,7 +91,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=JPL(MV);
         if(verbose==1){
             printf("Executando o JPL \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -99,7 +102,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=JPLE(MV);
         if(verbose==1){
             printf("Executando o JPLE \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -110,7 +113,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=JPE(MV);
         if(verbose==1){
             printf("Executando o JPE \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -121,7 +124,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=JPNE(MV);
         if(verbose==1){
             printf("Executando o JPNE --\n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -133,7 +136,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=XOR(MV);
         if(verbose==1){
             printf("Executando o XOR \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -143,7 +146,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=AND(MV);
         if(verbose==1){
             printf("Executando o AND \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -155,7 +158,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=OR(MV);
         if(verbose==1){
             printf("Executando o OR \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -166,7 +169,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=NOT(MV);
         if(verbose==1){
             printf("Executando o NOT \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -177,7 +180,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=ADD(MV);
         if(verbose==1){
             printf("Executando o ADD \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -189,7 +192,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=SUB(MV);
         if(verbose==1){
             printf("Executando o SUB \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -200,7 +203,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=READ(MV);
         if(verbose==1){
             printf("Executando o READ \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -211,7 +214,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=WRITE(MV);
         if(verbose==1){
             printf("Executando o WRITE \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -221,7 +224,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=CALL(MV);
         if(verbose==1){
             printf("Executando o CALL \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -231,7 +234,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=RET(MV);
         if(verbose==1){
             printf("Executando o RET \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
@@ -241,12 +244,12 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
         MV=HALT(MV);
         if(verbose==1){
             printf("Executando o HALT \n ");
-            printf("PC_=%d, SP_=%d, AC_=%d\n.",MV.PC_,MV.SP_,MV.AC_);
+            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
     }
 
-
+    }
 }
 
 
@@ -277,16 +280,28 @@ int main (int argc, char* argv[]) {
         }
 
 //salvar a instrucao na memoria
-       int instruc;
+        int instruc;
         i=atoi(argv[3]);
-        while(fscanf(input,"%d",&instruc)!=EOF){
+        while(fscanf(input,"%d",&instruc)>0){
+		printf("\n%d",i);
             MV.RAM_[i]=instruc;
             i++;
         }
 
-        executaOperacoes(MV,verbose);
+    
+	executaOperacoes(MV,verbose);
+	
     }
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
 
