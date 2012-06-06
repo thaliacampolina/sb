@@ -9,7 +9,8 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
     int i=MV.PC_;
     int instrucao;
 	
-    for(i=MV.PC_;i<1000;i++) {
+    while(1) {
+        int i = MV.PC_++;
 	instrucao=MV.RAM_[i];
 
     //INTRUCTION JMP
