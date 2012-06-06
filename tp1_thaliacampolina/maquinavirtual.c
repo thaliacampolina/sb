@@ -9,14 +9,14 @@
 MaquinaVirtual LOAD(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;  
     int M=MV.RAM_[MV.PC_]; 
-    MV.AC_=MV.RAM_[MV.PC_+M];
+    MV.AC_=MV.RAM_[M];
     return(MV);
 }
 //02
 MaquinaVirtual STORE(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    MV.RAM_[MV.PC_+M]=MV.AC_;
+    MV.RAM_[M]=MV.AC_;
     return(MV);
 }
 //03
@@ -24,14 +24,14 @@ MaquinaVirtual PUSH(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
     MV.SP_=MV.SP_-1;
-    MV.RAM_[MV.SP_]=MV.RAM_[MV.PC_+M];
+    MV.RAM_[MV.SP_]=MV.RAM_[M];
     return(MV);
 }
 //04
 MaquinaVirtual POP(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    MV.RAM_[MV.PC_+M]=MV.RAM_[MV.SP_];
+    MV.RAM_[M]=MV.RAM_[MV.SP_];
     MV.SP_=MV.SP_+1;
     return(MV);
 }
@@ -107,21 +107,21 @@ MaquinaVirtual JPNE(MaquinaVirtual MV){
 MaquinaVirtual XOR(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    MV.AC_=MV.AC_^MV.RAM_[MV.PC_+M];
+    MV.AC_=MV.AC_^MV.RAM_[M];
     return(MV);
 }
 //13
 MaquinaVirtual AND(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    MV.AC_=MV.AC_&MV.RAM_[MV.PC_+M];
+    MV.AC_=MV.AC_&MV.RAM_[M];
     return(MV);
 }
 //14
 MaquinaVirtual OR(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    MV.AC_=MV.AC_|MV.RAM_[MV.PC_+M];
+    MV.AC_=MV.AC_|MV.RAM_[M];
     return(MV);
 }
 //15
@@ -135,14 +135,14 @@ MaquinaVirtual NOT(MaquinaVirtual MV){
 MaquinaVirtual ADD(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    MV.AC_=MV.AC_+MV.RAM_[MV.PC_+M];
+    MV.AC_=MV.AC_+MV.RAM_[M];
     return(MV);
 }
 //17
 MaquinaVirtual SUB(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    MV.AC_=MV.AC_-MV.RAM_[MV.PC_+M];
+    MV.AC_=MV.AC_-MV.RAM_[M];
     return(MV);
 }
 //18
@@ -150,14 +150,14 @@ MaquinaVirtual READ(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
     printf("Insira um numero inteiro: ");
-    scanf("%d",&MV.RAM_[MV.PC_+M]);
+    scanf("%d",&MV.RAM_[M]);
     return(MV);
 }
 //19
 MaquinaVirtual WRITE(MaquinaVirtual MV){
     MV.PC_=MV.PC_+1;
     int M=MV.RAM_[MV.PC_];
-    printf("Conteudo da Memoria: %d\n",MV.RAM_[MV.PC_+M]);
+    printf("Conteudo da Memoria: %d\n",MV.RAM_[M]);
     return(MV);
 }
 //20

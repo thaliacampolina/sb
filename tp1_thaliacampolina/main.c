@@ -123,7 +123,7 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
     if(instrucao==11){
         MV=JPNE(MV);
         if(verbose==1){
-            printf("Executando o JPNE --\n ");
+            printf("Executando o JPNE \n ");
             printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
             printf("\n ");
         }
@@ -282,8 +282,7 @@ int main (int argc, char* argv[]) {
 //salvar a instrucao na memoria
         int instruc;
         i=atoi(argv[3]);
-        while(fscanf(input,"%d",&instruc)>0){
-		printf("\n%d",i);
+        while(fscanf(input,"%d",&instruc) >0) {
             MV.RAM_[i]=instruc;
             i++;
         }
