@@ -7,13 +7,11 @@
 void executaOperacoes(MaquinaVirtual MV, int verbose){
     
     MV.PC_--;
-printf("pc inicial: %d \n",MV.PC_);
     int instrucao;
 	
     while(1) {
         MV.PC_++;
 	instrucao=MV.RAM_[MV.PC_];
-printf("pc na %da iteracao: %d \ninstrucao: %d \nM:%d \n",MV.PC_, MV.PC_, MV.RAM_[MV.PC_],MV.RAM_[MV.PC_]);
 
     //INTRUCTION LOAD
     if(instrucao==1){
@@ -273,7 +271,7 @@ int main (int argc, char* argv[]) {
         return 0;
     } else {
 
-//inicializa maquina virtual, memoria default=0
+//inicializa maquina virtual, memoria default=0, AC=0.
         MV.PC_=atoi(argv[1]);
         MV.SP_=atoi(argv[2]);
         MV.AC_=0;
