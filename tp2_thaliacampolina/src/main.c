@@ -3,25 +3,58 @@
 #include <string.h>
 #include "montador.h"
 
+void Remove2P(char* str){
+    str=strtok(str,":");
+}
+
 void ReadFromFile(FILE* input){
     char* instruc = (char*)calloc(100,sizeof(char));
     int ILC=0;
     int tam=0;    
-    strcpy(instruc,"koala");
-    printf("\n%s",instruc);
+    char c;
     //calculates the number of instructions
-    while(fscanf(input,"%s",instruc) >0) {
+    while(fgets(instruc,100,input) >0) {
         tam++;
     }
     rewind(input);
     while(fscanf(input,"%s",instruc) >0) {
+        if(IsKeyword(instruc) != 1){
+            Remove2P(instruc);
+            InsertInTable(instruc,ILC);
+        }
         printf("%s \n", instruc);
-        //InsertInTable(instruc,ILC,tam);
         //IncreaseILC(ILC,instruc);  
     }
 }
 
 
+int IsKeyword(char* instruc){
+    if(strcmp(instruc,"LOAD")==0) return 1;                  
+    if(strcmp(instruc,"STORE")==0) return 1;                 
+    if(strcmp(instruc,"PUSH")==0) return 1;                  
+    if(strcmp(instruc,"POP")==0) return 1;
+    if(strcmp(instruc,"JMP")==0) return 1;                   
+    if(strcmp(instruc,"JPG")==0) return 1;                   
+    if(strcmp(instruc,"JPGE")==0) return 1;                   
+    if(strcmp(instruc,"JPL")==0) return 1;                   
+    if(strcmp(instruc,"JPLE")==0) return 1;                  
+    if(strcmp(instruc,"JPE")==0) return 1;                   
+    if(strcmp(instruc,"JPNE")==0) return 1;                  
+    if(strcmp(instruc,"XOR")==0) return 1;
+    if(strcmp(instruc,"AND")==0) return 1;                   
+    if(strcmp(instruc,"OR")==0) return 1;
+    if(strcmp(instruc,"NOT")==0) return 1;
+    if(strcmp(instruc,"ADD")==0) return 1;
+    if(strcmp(instruc,"SUB")==0) return 1;
+    if(strcmp(instruc,"READ")==0) return 1;
+    if(strcmp(instruc,"WRITE")==0) return 1;
+    if(strcmp(instruc,"CALL")==0) return 1;
+    if(strcmp(instruc,"RET")==0) return 1;
+    if(strcmp(instruc,"HALT")==0) return 1;
+    if(strcmp(instruc,"WORD")==0) return 1;
+    if(strcmp(instruc,"END")==0) return 1;
+    return 0;
+}
 
 int main(int argc, char* argv[]){
     FILE* input;

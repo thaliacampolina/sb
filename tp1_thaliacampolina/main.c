@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "maquinavirtual.h"
-#include "maquinavirtual.c"
 
 
 void executaOperacoes(MaquinaVirtual MV, int verbose){
@@ -253,8 +252,6 @@ void executaOperacoes(MaquinaVirtual MV, int verbose){
     }
 }
 
-
-
 int main (int argc, char* argv[]) {
     FILE* input;
     input = fopen(argv[5], "r");
@@ -295,13 +292,4 @@ int main (int argc, char* argv[]) {
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
 
