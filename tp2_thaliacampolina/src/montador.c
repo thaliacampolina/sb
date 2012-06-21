@@ -39,6 +39,7 @@ int IncreaseILC(int ILC, char* instruc){
     if(strcmp(instruc,"CALL")==0)ILC=ILC+2;
     if(strcmp(instruc,"RET")==0)ILC=ILC+1;
     if(strcmp(instruc,"HALT")==0)ILC=ILC+1;
+    if(strcmp(instruc,"WORD")==0)ILC=ILC+2;
 
     return(ILC);
 

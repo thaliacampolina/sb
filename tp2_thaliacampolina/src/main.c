@@ -10,7 +10,7 @@ void Remove2P(char* str){
 void PrintTable(Table* table, int tam){
     int i;
     for(i=0; i<tam; i++ ){
-       printf("Tabela [%d] = %s \n",i,table->symbol_[i]->name_); 
+       printf("Tabela [%d] = %s  value = %d \n",i,table->symbol_[i]->name_,table->symbol_[i]->value_); 
     }
 }
 
@@ -19,7 +19,6 @@ int IsLabel(char* str){
     int i = 0;
     while((str[i] != '\0') || (i<100)){
         if(str[i] == ':'){
-printf("string label = %s \n",str);
             return 1;
         }
         i++;
@@ -37,25 +36,24 @@ void ReadFromFile(FILE* input){
     Table* table = (Table*)malloc(sizeof(Table));
     table->last_=0;
     Symbol* symbol;
+    int labelCounter=0;
 
     //calculates the number of instructions
     while(fgets(instruc,100,input) >0) {
         tam++;
-        printf("%d \n", tam);
     }
     rewind(input);
     while(fscanf(input,"%s",instruc) >0) {
-        IncreaseILC(ILC,instruc);
+        ILC=IncreaseILC(ILC,instruc);
         if((IsKeyword(instruc) == 0) && (IsLabel(instruc) == 1)) {
             Remove2P(instruc);
             symbol = (Symbol*)malloc(sizeof(Symbol));
             CreateSymbol(symbol,instruc,ILC);
             InsertSymbolInTable(table,symbol);
+            labelCounter++;
         }
-        printf("%s \n", instruc);
-        //IncreaseILC(ILC,instruc);  
     }
-  //  PrintTable(table,tam);
+    PrintTable(table,labelCounter);
 }
 
 
