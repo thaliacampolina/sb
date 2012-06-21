@@ -7,24 +7,55 @@ void Remove2P(char* str){
     str=strtok(str,":");
 }
 
+void PrintTable(Table* table, int tam){
+    int i;
+    for(i=0; i<tam; i++ ){
+       printf("Tabela [%d] = %s \n",i,table->symbol_[i]->name_); 
+    }
+}
+
+
+int IsLabel(char* str){
+    int i = 0;
+    while((str[i] != '\0') || (i<100)){
+        if(str[i] == ':'){
+printf("string label = %s \n",str);
+            return 1;
+        }
+        i++;
+    }
+    return 0;
+}
+
+
+
 void ReadFromFile(FILE* input){
     char* instruc = (char*)calloc(100,sizeof(char));
     int ILC=0;
     int tam=0;    
     char c;
+    Table* table = (Table*)malloc(sizeof(Table));
+    table->last_=0;
+    Symbol* symbol;
+
     //calculates the number of instructions
     while(fgets(instruc,100,input) >0) {
         tam++;
+        printf("%d \n", tam);
     }
     rewind(input);
     while(fscanf(input,"%s",instruc) >0) {
-        if(IsKeyword(instruc) != 1){
+        IncreaseILC(ILC,instruc);
+        if((IsKeyword(instruc) == 0) && (IsLabel(instruc) == 1)) {
             Remove2P(instruc);
-            InsertInTable(instruc,ILC);
+            symbol = (Symbol*)malloc(sizeof(Symbol));
+            CreateSymbol(symbol,instruc,ILC);
+            InsertSymbolInTable(table,symbol);
         }
         printf("%s \n", instruc);
         //IncreaseILC(ILC,instruc);  
     }
+  //  PrintTable(table,tam);
 }
 
 
@@ -72,8 +103,8 @@ puts("THATHA LINDINHA");
 
     fclose(input);
 
-    FILE* output;
-    output = fopen(argv[3], "w");
-    fclose (output);
+//    FILE* output;
+//    output = fopen(argv[3], "w");
+//    fclose (output);
     return 0;
 }

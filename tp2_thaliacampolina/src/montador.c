@@ -3,13 +3,18 @@
 #include <string.h>
 #include "montador.h"
 
-TabelaSimbolos InsertInTable(char* simbolo, int ILC){
-    TabelaSimbolos Tabela;
-    Tabela.simbolo_=(char*)calloc(100,sizeof(char));
-    strcpy(Tabela.simbolo_,simbolo);
-    Tabela.valor_=ILC;
-    return Tabela;
+void CreateSymbol(Symbol* symbol,char* name, int ILC){
+    symbol->name_=(char*)calloc(100,sizeof(char));
+    strcpy(symbol->name_,name);
+    symbol->value_=ILC;
 }
+
+void InsertSymbolInTable(Table* table, Symbol* symbol){
+    table->symbol_[table->last_]=symbol;
+    table->last_++; 
+}
+
+
 
 int IncreaseILC(int ILC, char* instruc){
     if(strcmp(instruc,"LOAD")==0)ILC=ILC+2;                  
