@@ -48,3 +48,9 @@ int IncreaseILC(int ILC, char* instruc){
 
 
 //PSEUDO-INSTRUCTIONS
+
+int WORD(int ILC,int value){
+    int READ = 18;
+    return READ;
+}   
+ 
