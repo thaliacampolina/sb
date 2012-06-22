@@ -3,8 +3,8 @@
 #include <string.h>
 #include "montador.h"
 
-void Remove2P(char* str){
-    str=strtok(str,":");
+char* Remove2P(char* str){
+    return strtok(str,":");
 }
 
 void PrintTable(Table* table, int tam){
@@ -39,27 +39,39 @@ int SearchLabelValue(Table* table, char* label){
 
 void CreateOutput(FILE* input,FILE* output, Table* table){
     char* instruc = (char*)calloc(100,sizeof(char));
+    char* label = (char*)calloc(100,sizeof(char));
     int number;
+    int numberILC;
+    int labelILC;
+    int PC=0;
     while((fscanf(input,"%s",instruc) >0) && (strcmp(instruc,"END")!=0)) {
         //if is WORD
         if ((IsKeyword(instruc)==1) && (strcmp(instruc,"WORD")==0)) {
+            PC++;
             fscanf(input,"%d",&number);
             fprintf(output,"%d \n",number);
-        //if is other instruction
-        } if ((IsKeyword(instruc) == 1) && (IsLabel(instruc) == 0)) {
+        //if is any Jump instruction 
+        } if ((IsKeyword(instruc) == 2)) {
+            PC++;
             number = Decode(instruc);
             fprintf(output,"%d \n",number);
-        //} else if(IsLabel(instruc) == 1) {
+            fscanf(input,"%s",label);
+            labelILC = SearchLabelValue(table,label);
+            numberILC = labelILC - PC -1;
+printf("labelILC=%d PC=%d \n", labelILC, PC );
+            fprintf(output,"%d \n",numberILC);
+        //if is other instruction
+        } if ((IsKeyword(instruc) == 1) && (IsLabel(instruc) == 0) && (strcmp(instruc,"WORD")!=0)) {
+            PC++;
+            number = Decode(instruc);
+            fprintf(output,"%d \n",number);
         //if is an operand
         } if ((IsKeyword(instruc) == 0) && (IsLabel(instruc) == 0)) {
+            PC++;
             number = SearchLabelValue(table, instruc);
             fprintf(output,"%d \n",number);
         }
     }
-    //if is END
-    //if ((IsKeyword(instruc)==1) && (strcmp(instruc,"END")==0)) {
-   //         fprintf(output,"%d \n",number);
-   // }
 }
 
 
@@ -87,7 +99,7 @@ void ReadFromFile(FILE* input, FILE* output, int verbose){
 //    }
 
         if((IsKeyword(instruc) == 0) && (IsLabel(instruc) == 1)) {
-            Remove2P(instruc);
+            strcpy(instruc,Remove2P(instruc));
             symbol = (Symbol*)malloc(sizeof(Symbol));
             CreateSymbol(symbol,instruc,ILC);
             InsertSymbolInTable(table,symbol);
@@ -110,13 +122,13 @@ int IsKeyword(char* instruc){
     if(strcmp(instruc,"STORE")==0) return 1;
     if(strcmp(instruc,"PUSH")==0) return 1;
     if(strcmp(instruc,"POP")==0) return 1;
-    if(strcmp(instruc,"JMP")==0) return 1;
-    if(strcmp(instruc,"JPG")==0) return 1;
-    if(strcmp(instruc,"JPGE")==0) return 1;
-    if(strcmp(instruc,"JPL")==0) return 1;
-    if(strcmp(instruc,"JPLE")==0) return 1;
-    if(strcmp(instruc,"JPE")==0) return 1;
-    if(strcmp(instruc,"JPNE")==0) return 1;
+    if(strcmp(instruc,"JMP")==0) return 2;
+    if(strcmp(instruc,"JPG")==0) return 2;
+    if(strcmp(instruc,"JPGE")==0) return 2;
+    if(strcmp(instruc,"JPL")==0) return 2;
+    if(strcmp(instruc,"JPLE")==0) return 2;
+    if(strcmp(instruc,"JPE")==0) return 2;
+    if(strcmp(instruc,"JPNE")==0) return 2;
     if(strcmp(instruc,"XOR")==0) return 1;
     if(strcmp(instruc,"AND")==0) return 1;
     if(strcmp(instruc,"OR")==0) return 1;
