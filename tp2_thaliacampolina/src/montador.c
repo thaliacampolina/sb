@@ -39,8 +39,7 @@ int IncreaseILC(int ILC, char* instruc){
     if(strcmp(instruc,"CALL")==0)ILC=ILC+2;
     if(strcmp(instruc,"RET")==0)ILC=ILC+1;
     if(strcmp(instruc,"HALT")==0)ILC=ILC+1;
-    if(strcmp(instruc,"WORD")==0)ILC=ILC+2;
-    if(strcmp(instruc,"END")==0)ILC=ILC+1;
+    if(strcmp(instruc,"WORD")==0)ILC=ILC+1;
 
     return(ILC);
 
@@ -49,8 +48,7 @@ int IncreaseILC(int ILC, char* instruc){
 
 //PSEUDO-INSTRUCTIONS
 
-int WORD(int ILC,int value){
-    int READ = 18;
-    return READ;
-}   
+//int WORD(int value){
+//    return READ;
+//}   
  

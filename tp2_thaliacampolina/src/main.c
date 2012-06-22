@@ -40,29 +40,30 @@ int SearchLabelValue(Table* table, char* label){
 void CreateOutput(FILE* input,FILE* output, Table* table){
     char* instruc = (char*)calloc(100,sizeof(char));
     int number;
-    while(fscanf(input,"%s",instruc) >0) {
+    while((fscanf(input,"%s",instruc) >0) && (strcmp(instruc,"END")!=0)) {
         //if is WORD
         if ((IsKeyword(instruc)==1) && (strcmp(instruc,"WORD")==0)) {
-            fscanf(input,"%d",number);
-            fprintf(output,"%d \n",number);
-        //if is END
-        } if ((IsKeyword(instruc)==1) && (strcmp(instruc,"END")==0)) {
+            fscanf(input,"%d",&number);
             fprintf(output,"%d \n",number);
         //if is other instruction
         } if ((IsKeyword(instruc) == 1) && (IsLabel(instruc) == 0)) {
             number = Decode(instruc);
             fprintf(output,"%d \n",number);
-//        } else if(IsLabel(instruc) == 1) {
+        //} else if(IsLabel(instruc) == 1) {
         //if is an operand
         } if ((IsKeyword(instruc) == 0) && (IsLabel(instruc) == 0)) {
             number = SearchLabelValue(table, instruc);
             fprintf(output,"%d \n",number);
         }
     }
+    //if is END
+    //if ((IsKeyword(instruc)==1) && (strcmp(instruc,"END")==0)) {
+   //         fprintf(output,"%d \n",number);
+   // }
 }
 
 
-void ReadFromFile(FILE* input, FILE* output){
+void ReadFromFile(FILE* input, FILE* output, int verbose){
     char* instruc = (char*)calloc(100,sizeof(char));
     int ILC=0;
     int tam=0;
@@ -93,8 +94,10 @@ void ReadFromFile(FILE* input, FILE* output){
             labelCounter++;
         }
     }
-    PrintTable(table,labelCounter);
 
+    if (verbose == 1){
+        PrintTable(table,labelCounter);
+    }
 
     rewind(input);
     CreateOutput(input,output,table);
@@ -171,7 +174,7 @@ int main(int argc, char* argv[]){
         verbose=0;
     }
     
-    ReadFromFile(input, output);    
+    ReadFromFile(input, output, verbose);    
 puts("THATHA LINDINHA");
 
     fclose(input);
