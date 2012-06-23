@@ -3,19 +3,20 @@
 #include <string.h>
 #include "montador.h"
 
+//Creates a new Symbol and allocates memory
 void CreateSymbol(Symbol* symbol,char* name, int ILC){
     symbol->name_=(char*)calloc(100,sizeof(char));
     strcpy(symbol->name_,name);
     symbol->value_=ILC;
 }
-
+//Insert a symbol on the Symbol Table
 void InsertSymbolInTable(Table* table, Symbol* symbol){
     table->symbol_[table->last_]=symbol;
     table->last_++; 
 }
 
 
-
+//Increases ILC according to each instruction
 int IncreaseILC(int ILC, char* instruc){
     if(strcmp(instruc,"LOAD")==0)ILC=ILC+2;                  
     if(strcmp(instruc,"STORE")==0)ILC=ILC+2;                 
@@ -45,18 +46,18 @@ int IncreaseILC(int ILC, char* instruc){
 
 }
 
-
+//Removes the ":" of a Label
 char* Remove2P(char* str){
     return strtok(str,":");
 }
-
+//Print the table on verbose mode
 void PrintTable(Table* table, int tam){
     int i;
     for(i=0; i<tam; i++ ){
        printf("Tabela [%d] = %s  value = %d \n",i,table->symbol_[i]->name_,table->symbol_[i]->value_); 
     }
 }
-
+//Recognizes a commentary and removes it
 int isCommentary(char* str) {
     int i = 0;
 
@@ -69,7 +70,7 @@ int isCommentary(char* str) {
     }
     return 0;
 }
-
+//Recognizes a Label
 int IsLabel(char* str){
     int i = 0;
     while((str[i] != '\0') || (i<100)){
@@ -81,7 +82,7 @@ int IsLabel(char* str){
     return 0;
 }
 
-
+//Returns a label ILC
 int SearchLabelValue(Table* table, char* label){
     int i=0;
     for(i=0;i<table->last_;i++){
@@ -92,7 +93,7 @@ int SearchLabelValue(Table* table, char* label){
 }
 
 
-
+//Recognizes a keyword
 int IsKeyword(char* instruc){
     if(strcmp(instruc,"LOAD")==0) return 1;
     if(strcmp(instruc,"STORE")==0) return 1;
@@ -120,7 +121,7 @@ int IsKeyword(char* instruc){
     if(strcmp(instruc,"END")==0) return 8;
     return 0;
 }
-
+//All instructions and its VirtualMachine number
 int Decode(char* instruc){
     if(strcmp(instruc,"LOAD")==0) return 1;
     if(strcmp(instruc,"STORE")==0) return 2;
@@ -156,6 +157,7 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
     int labelILC;
     int PC=0;
     while((fscanf(input,"%s",instruc) >0) && (strcmp(instruc,"END")!=0)) {
+        //if is Comentary
         if(isCommentary(instruc)==1) {
             while(fgetc(input)!='\n') {
                 //printf("apagando\n");
@@ -172,6 +174,7 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
             number = Decode(instruc);
             fprintf(output,"%d \n",number);
             fscanf(input,"%s",label);
+            //if there's a comment on the same line of a JUMP instruc
             if(isCommentary(label)==1) {
                 while(fgetc(input)!='\n') {
                     //printf("apagando\n");
@@ -192,6 +195,7 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
                 fprintf(output,"%d \n",number);
                 PC++;
             }
+        //if is END
         }if ((IsKeyword(instruc)==8) && (strcmp(instruc,"END")==0)) {
 			return;
     	}
