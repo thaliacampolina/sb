@@ -19,10 +19,15 @@ typedef struct table {
 
 void CreateSymbol(Symbol* symbol,char* name, int ILC);
 void InsertSymbolInTable(Table* table, Symbol* symbol);
-
-
-
-
+int IncreaseILC(int ILC, char* instruc);
+char* Remove2P(char* str);
+void PrintTable(Table* table, int tam);
+int isCommentary(char* str);
+int IsLabel(char* str);
+int SearchLabelValue(Table* table, char* label);
+int IsKeyword(char* instruc);
+int Decode(char* instruc);
+void CreateOutput(FILE* input,FILE* output, Table* table);
 
 
 #endif

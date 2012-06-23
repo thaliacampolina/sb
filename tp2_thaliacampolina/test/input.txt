@@ -1,4 +1,4 @@
-READ A
+READ A ;comentario feliz
 READ B
 LOAD A
 STORE C
