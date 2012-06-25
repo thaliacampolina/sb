@@ -1,0 +1,694 @@
+diff --git a/tp1_thaliacampolina/main.c b/tp1_thaliacampolina/main.c
+deleted file mode 100644
+index 19c2147..0000000
+--- a/tp1_thaliacampolina/main.c
++++ /dev/null
+@@ -1,295 +0,0 @@
+-#include <stdlib.h>
+-#include <stdio.h>
+-#include "maquinavirtual.h"
+-
+-
+-void executaOperacoes(MaquinaVirtual MV, int verbose){
+-    
+-    MV.PC_--;
+-    int instrucao;
+-	
+-    while(1) {
+-        MV.PC_++;
+-	instrucao=MV.RAM_[MV.PC_];
+-
+-    //INTRUCTION LOAD
+-    if(instrucao==1){
+-        MV=LOAD(MV);
+-        if(verbose==1){
+-            printf("Executando o LOAD \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    //INTRUCTION STORE
+-    if(instrucao==2){
+-        MV=STORE(MV);
+-        if(verbose==1){
+-            printf("Executando o STORE \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    //INTRUCTION PUSH
+-    if(instrucao==3){
+-        MV=PUSH(MV);
+-        if(verbose==1){
+-            printf("Executando o PUSH \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    //INTRUCTION POP
+-    if(instrucao==4){
+-        MV=POP(MV);
+-        if(verbose==1){
+-            printf("Executando o POP \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION JMP
+-    if(instrucao==5){
+-        MV=JMP(MV);
+-        if(verbose==1){
+-            printf("Executando o JMP \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION JPG
+-    if(instrucao==6){
+-        MV=JPG(MV);
+-        if(verbose==1){
+-            printf("Executando o JPG \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION JPGE
+-    if(instrucao==7){
+-        MV=JPGE(MV);
+-        if(verbose==1){
+-            printf("Executando o JPGE \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION JPL
+-    if(instrucao==8){
+-        MV=JPL(MV);
+-        if(verbose==1){
+-            printf("Executando o JPL \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION JPLE
+-    if(instrucao==9){
+-        MV=JPLE(MV);
+-        if(verbose==1){
+-            printf("Executando o JPLE \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION JPE
+-    if(instrucao==10){
+-        MV=JPE(MV);
+-        if(verbose==1){
+-            printf("Executando o JPE \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION JPNE
+-    if(instrucao==11){
+-        MV=JPNE(MV);
+-        if(verbose==1){
+-            printf("Executando o JPNE \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-
+-    //INTRUCTION XOR
+-    if(instrucao==12){
+-        MV=XOR(MV);
+-        if(verbose==1){
+-            printf("Executando o XOR \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    //INTRUCTION AND
+-    if(instrucao==13){
+-        MV=AND(MV);
+-        if(verbose==1){
+-            printf("Executando o AND \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-
+-    //INTRUCTION OR
+-    if(instrucao==14){
+-        MV=OR(MV);
+-        if(verbose==1){
+-            printf("Executando o OR \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION NOT
+-    if(instrucao==15){
+-        MV=NOT(MV);
+-        if(verbose==1){
+-            printf("Executando o NOT \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION ADD
+-    if(instrucao==16){
+-        MV=ADD(MV);
+-        if(verbose==1){
+-            printf("Executando o ADD \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-
+-    //INTRUCTION SUB
+-    if(instrucao==17){
+-        MV=SUB(MV);
+-        if(verbose==1){
+-            printf("Executando o SUB \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION READ
+-    if(instrucao==18){
+-        MV=READ(MV);
+-        if(verbose==1){
+-            printf("Executando o READ \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-
+-    //INTRUCTION WRITE
+-    if(instrucao==19){
+-        MV=WRITE(MV);
+-        if(verbose==1){
+-            printf("Executando o WRITE \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    //INTRUCTION CALL
+-    if(instrucao==20){
+-        MV=CALL(MV);
+-        if(verbose==1){
+-            printf("Executando o CALL \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    //INTRUCTION RET
+-    if(instrucao==21){
+-        MV=RET(MV);
+-        if(verbose==1){
+-            printf("Executando o RET \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    //INTRUCTION HALT
+-    if(instrucao==22){
+-        MV=HALT(MV);
+-        if(verbose==1){
+-            printf("Executando o HALT \n ");
+-            printf("PC_=%d, SP_=%d, AC_=%d\n",MV.PC_,MV.SP_,MV.AC_);
+-            printf("\n ");
+-        }
+-    }
+-
+-    }
+-}
+-
+-int main (int argc, char* argv[]) {
+-    FILE* input;
+-    input = fopen(argv[5], "r");
+-    int verbose;
+-    MaquinaVirtual MV;
+-    if(strcmp(argv[4],"v")==0){
+-        verbose=1;
+-    }
+-    if(strcmp(argv[4],"s")==0){
+-        verbose=0;
+-    }
+-    if (input == NULL){
+-        puts("O ARQUIVO NAO FOI ABERTO");
+-        return 0;
+-    } else {
+-
+-//inicializa maquina virtual, memoria default=0, AC=0.
+-        MV.PC_=atoi(argv[1]);
+-        MV.SP_=atoi(argv[2]);
+-        MV.AC_=0;
+-        int i;
+-        for(i=0;i<1000;i++){
+-            MV.RAM_[i]=0;
+-        }
+-
+-//salvar a instrucao na memoria
+-        int instruc;
+-        i=atoi(argv[3]);
+-        while(fscanf(input,"%d",&instruc) >0) {
+-            MV.RAM_[i]=instruc;
+-            i++;
+-        }
+-
+-    
+-	executaOperacoes(MV,verbose);
+-	
+-    }
+-
+-    return 0;
+-}
+-
+diff --git a/tp1_thaliacampolina/maquinavirtual.c b/tp1_thaliacampolina/maquinavirtual.c
+deleted file mode 100644
+index c109c65..0000000
+--- a/tp1_thaliacampolina/maquinavirtual.c
++++ /dev/null
+@@ -1,182 +0,0 @@
+-#include <stdlib.h>
+-#include <stdio.h>
+-#include <string.h>
+-#include "maquinavirtual.h"
+-
+-//IMPLEMENTAC_AO DAS INSTRUCOES
+-
+-//01
+-MaquinaVirtual LOAD(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;  
+-    int M=MV.RAM_[MV.PC_]; 
+-    MV.AC_=MV.RAM_[M];
+-    return(MV);
+-}
+-//02
+-MaquinaVirtual STORE(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.RAM_[M]=MV.AC_;
+-    return(MV);
+-}
+-//03
+-MaquinaVirtual PUSH(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.SP_=MV.SP_-1;
+-    MV.RAM_[MV.SP_]=MV.RAM_[M];
+-    return(MV);
+-}
+-//04
+-MaquinaVirtual POP(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.RAM_[M]=MV.RAM_[MV.SP_];
+-    MV.SP_=MV.SP_+1;
+-    return(MV);
+-}
+-//05
+-MaquinaVirtual JMP(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.PC_=MV.PC_+M;
+-    return(MV);
+-}
+-//06
+-// if AC_>0
+-MaquinaVirtual JPG(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    if(MV.AC_>0){
+-        MV.PC_=MV.PC_+M;
+-    }
+-    return(MV);
+-}
+-//07
+-// if AC_>=0
+-MaquinaVirtual JPGE(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    if(MV.AC_>=0){
+-        MV.PC_=MV.PC_+M;
+-    }
+-    return(MV);
+-
+-}
+-//08
+-// if AC_<0
+-MaquinaVirtual JPL(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    if(MV.AC_<0){
+-        MV.PC_=MV.PC_+M;
+-    }
+-    return(MV);
+-}
+-//09
+-// if AC_<=0
+-MaquinaVirtual JPLE(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    if(MV.AC_<=0){
+-        MV.PC_=MV.PC_+M;
+-    }
+-    return(MV);
+-}
+-//10
+-// if AC_=0
+-MaquinaVirtual JPE(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    if(MV.AC_=0){
+-        MV.PC_=MV.PC_+M;
+-    }
+-    return(MV);
+-}
+-//11
+-// if AC_!=0
+-MaquinaVirtual JPNE(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    if(MV.AC_!=0){
+-        MV.PC_=MV.PC_+M;
+-    }
+-    return(MV);
+-}
+-//12
+-MaquinaVirtual XOR(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.AC_=MV.AC_^MV.RAM_[M];
+-    return(MV);
+-}
+-//13
+-MaquinaVirtual AND(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.AC_=MV.AC_&MV.RAM_[M];
+-    return(MV);
+-}
+-//14
+-MaquinaVirtual OR(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.AC_=MV.AC_|MV.RAM_[M];
+-    return(MV);
+-}
+-//15
+-MaquinaVirtual NOT(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.AC_=~MV.AC_;
+-    return(MV);
+-}
+-//16
+-MaquinaVirtual ADD(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.AC_=MV.AC_+MV.RAM_[M];
+-    return(MV);
+-}
+-//17
+-MaquinaVirtual SUB(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.AC_=MV.AC_-MV.RAM_[M];
+-    return(MV);
+-}
+-//18
+-MaquinaVirtual READ(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    printf("Insira um numero inteiro: ");
+-    scanf("%d",&(MV.RAM_[M]));
+-    return(MV);
+-}
+-//19
+-MaquinaVirtual WRITE(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    printf("Conteudo da Memoria: %d\n",MV.RAM_[M]);
+-    return(MV);
+-}
+-//20
+-MaquinaVirtual CALL(MaquinaVirtual MV){
+-    MV.PC_=MV.PC_+1;
+-    int M=MV.RAM_[MV.PC_];
+-    MV.SP_=MV.SP_-1;
+-    MV.RAM_[MV.SP_]=MV.PC_;
+-    MV.PC_=MV.PC_+M;
+-    return(MV);
+-}
+-//21
+-MaquinaVirtual RET(MaquinaVirtual MV){
+-    MV.PC_=MV.RAM_[MV.SP_];
+-    MV.SP_=MV.SP_+1;
+-    return(MV);
+-}
+-//22
+-MaquinaVirtual HALT(MaquinaVirtual MV){
+-    exit(0);
+-}
+-
+diff --git a/tp1_thaliacampolina/maquinavirtual.h b/tp1_thaliacampolina/maquinavirtual.h
+deleted file mode 100644
+index cee620b..0000000
+--- a/tp1_thaliacampolina/maquinavirtual.h
++++ /dev/null
+@@ -1,70 +0,0 @@
+-#ifndef _maquinavirtual_h
+-#define _maquinavirtual_h
+-
+-#include<stdio.h>
+-#include<stdlib.h>
+-#include<string.h>
+-
+-
+-typedef struct maquinavirtual{
+-    int RAM_[1000];
+-    //program counter
+-    int PC_;
+-    //acumulador
+-    int AC_;
+-    //stack pointer
+-    int SP_;
+-} MaquinaVirtual;
+-
+-//01
+-MaquinaVirtual LOAD(MaquinaVirtual MV);
+-//02
+-MaquinaVirtual STORE(MaquinaVirtual MV);
+-//03
+-MaquinaVirtual PUSH(MaquinaVirtual MV);
+-//04
+-MaquinaVirtual POP(MaquinaVirtual MV);
+-//05
+-MaquinaVirtual JMP(MaquinaVirtual MV);
+-//06
+-// if AC_>0
+-MaquinaVirtual JPG(MaquinaVirtual MV);
+-//07
+-// if AC_>=0
+-MaquinaVirtual JPGE(MaquinaVirtual MV);
+-//08
+-// if AC_<0
+-MaquinaVirtual JPL(MaquinaVirtual MV);
+-//09
+-// if AC_<=0
+-MaquinaVirtual JPLE(MaquinaVirtual MV);
+-//10
+-// if AC_=0
+-MaquinaVirtual JPE(MaquinaVirtual MV);
+-//11
+-// if AC_!=0
+-MaquinaVirtual JPNE(MaquinaVirtual MV);
+-//12
+-MaquinaVirtual XOR(MaquinaVirtual MV);
+-//13
+-MaquinaVirtual AND(MaquinaVirtual MV);
+-//14
+-MaquinaVirtual OR(MaquinaVirtual MV);
+-//15
+-MaquinaVirtual NOT(MaquinaVirtual MV);
+-//16
+-MaquinaVirtual ADD(MaquinaVirtual MV);
+-//17
+-MaquinaVirtual SUB(MaquinaVirtual MV);
+-//18
+-MaquinaVirtual READ(MaquinaVirtual MV);
+-//19
+-MaquinaVirtual WRITE(MaquinaVirtual MV);
+-//20
+-MaquinaVirtual CALL(MaquinaVirtual MV);
+-//21
+-MaquinaVirtual RET(MaquinaVirtual MV);
+-//22
+-MaquinaVirtual HALT(MaquinaVirtual MV);
+-
+-#endif
+diff --git a/tp2_thaliacampolina/output.txt b/tp2_thaliacampolina/output.txt
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/tp2_thaliacampolina/src/montador b/tp2_thaliacampolina/src/montador
+deleted file mode 100755
+index 082d00d..0000000
+Binary files a/tp2_thaliacampolina/src/montador and /dev/null differ
+diff --git a/tp2_thaliacampolina/src/montador.c b/tp2_thaliacampolina/src/montador.c
+index 2629833..b12b74a 100644
+--- a/tp2_thaliacampolina/src/montador.c
++++ b/tp2_thaliacampolina/src/montador.c
+@@ -3,19 +3,20 @@
+ #include <string.h>
+ #include "montador.h"
+ 
++//Creates a new Symbol and allocates memory
+ void CreateSymbol(Symbol* symbol,char* name, int ILC){
+     symbol->name_=(char*)calloc(100,sizeof(char));
+     strcpy(symbol->name_,name);
+     symbol->value_=ILC;
+ }
+-
++//Insert a symbol on the Symbol Table
+ void InsertSymbolInTable(Table* table, Symbol* symbol){
+     table->symbol_[table->last_]=symbol;
+     table->last_++; 
+ }
+ 
+ 
+-
++//Increases ILC according to each instruction
+ int IncreaseILC(int ILC, char* instruc){
+     if(strcmp(instruc,"LOAD")==0)ILC=ILC+2;                  
+     if(strcmp(instruc,"STORE")==0)ILC=ILC+2;                 
+@@ -45,18 +46,18 @@ int IncreaseILC(int ILC, char* instruc){
+ 
+ }
+ 
+-
++//Removes the ":" of a Label
+ char* Remove2P(char* str){
+     return strtok(str,":");
+ }
+-
++//Print the table on verbose mode
+ void PrintTable(Table* table, int tam){
+     int i;
+     for(i=0; i<tam; i++ ){
+        printf("Tabela [%d] = %s  value = %d \n",i,table->symbol_[i]->name_,table->symbol_[i]->value_); 
+     }
+ }
+-
++//Recognizes a commentary and removes it
+ int isCommentary(char* str) {
+     int i = 0;
+ 
+@@ -69,7 +70,7 @@ int isCommentary(char* str) {
+     }
+     return 0;
+ }
+-
++//Recognizes a Label
+ int IsLabel(char* str){
+     int i = 0;
+     while((str[i] != '\0') || (i<100)){
+@@ -81,7 +82,7 @@ int IsLabel(char* str){
+     return 0;
+ }
+ 
+-
++//Returns a label ILC
+ int SearchLabelValue(Table* table, char* label){
+     int i=0;
+     for(i=0;i<table->last_;i++){
+@@ -92,7 +93,7 @@ int SearchLabelValue(Table* table, char* label){
+ }
+ 
+ 
+-
++//Recognizes a keyword
+ int IsKeyword(char* instruc){
+     if(strcmp(instruc,"LOAD")==0) return 1;
+     if(strcmp(instruc,"STORE")==0) return 1;
+@@ -120,7 +121,7 @@ int IsKeyword(char* instruc){
+     if(strcmp(instruc,"END")==0) return 8;
+     return 0;
+ }
+-
++//All instructions and its VirtualMachine number
+ int Decode(char* instruc){
+     if(strcmp(instruc,"LOAD")==0) return 1;
+     if(strcmp(instruc,"STORE")==0) return 2;
+@@ -156,6 +157,7 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
+     int labelILC;
+     int PC=0;
+     while((fscanf(input,"%s",instruc) >0) && (strcmp(instruc,"END")!=0)) {
++        //if is Comentary
+         if(isCommentary(instruc)==1) {
+             while(fgetc(input)!='\n') {
+                 //printf("apagando\n");
+@@ -172,11 +174,12 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
+             number = Decode(instruc);
+             fprintf(output,"%d \n",number);
+             fscanf(input,"%s",label);
+-        if(isCommentary(label)==1) {
+-            while(fgetc(input)!='\n') {
+-                //printf("apagando\n");
++            //if there's a comment on the same line of a JUMP instruc
++            if(isCommentary(label)==1) {
++                while(fgetc(input)!='\n') {
++                    //printf("apagando\n");
++                }
+             }
+-        } 
+             labelILC = SearchLabelValue(table,label);
+             numberILC = labelILC - PC -1;
+             fprintf(output,"%d \n",numberILC);
+@@ -192,6 +195,7 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
+                 fprintf(output,"%d \n",number);
+                 PC++;
+             }
++        //if is END
+         }if ((IsKeyword(instruc)==8) && (strcmp(instruc,"END")==0)) {
+ 			return;
+     	}
+diff --git a/tp2_thaliacampolinaNEW/Documentacao.doc b/tp2_thaliacampolinaNEW/Documentacao.doc
+deleted file mode 100644
+index 46f433d..0000000
+Binary files a/tp2_thaliacampolinaNEW/Documentacao.doc and /dev/null differ
