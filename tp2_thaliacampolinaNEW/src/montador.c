@@ -167,7 +167,7 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
         if ((IsKeyword(instruc)==1) && (strcmp(instruc,"WORD")==0)) {
             PC++;
             fscanf(input,"%d",&number);
-            fprintf(output,"%d \n",number);
+            fprintf(output,"%d\n",number);
         //if is any Jump instruction 
         } if ((IsKeyword(instruc) == 2)) {
             PC++;
