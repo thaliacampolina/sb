@@ -172,7 +172,7 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
         } if ((IsKeyword(instruc) == 2)) {
             PC++;
             number = Decode(instruc);
-            fprintf(output,"%d \n",number);
+            fprintf(output,"%d\n",number);
             fscanf(input,"%s",label);
             //if there's a comment on the same line of a JUMP instruc
             if(isCommentary(label)==1) {
@@ -182,17 +182,17 @@ void CreateOutput(FILE* input,FILE* output, Table* table){
             }
             labelILC = SearchLabelValue(table,label);
             numberILC = labelILC - PC -1;
-            fprintf(output,"%d \n",numberILC);
+            fprintf(output,"%d\n",numberILC);
         //if is other instruction
         } if ((IsKeyword(instruc) == 1) && (IsLabel(instruc) == 0) && (strcmp(instruc,"WORD")!=0)) {
             PC++;
             number = Decode(instruc);
-            fprintf(output,"%d \n",number);
+            fprintf(output,"%d\n",number);
         //if is an operand
         } if ((IsKeyword(instruc) == 0) && (IsLabel(instruc) == 0)) {
             number = SearchLabelValue(table, instruc);
             if (number!=-1) {
-                fprintf(output,"%d \n",number);
+                fprintf(output,"%d\n",number);
                 PC++;
             }
         //if is END
