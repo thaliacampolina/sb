@@ -1,5 +1,5 @@
-#ifndef expansor_h
-#define expansor_h
+#ifndef EXPANSOR_H
+#define EXPANSOR_H
 
 //macro structure
 typedef struct macroSymbols {
