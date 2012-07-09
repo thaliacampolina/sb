@@ -15,6 +15,8 @@ void ReadFromFile(FILE* input,MacroTable* table){
             strcpy(prev,instruc);
         } else {
             //creates macro with its name (prev)
+	    //retirar 2 pontos do nome da macro
+	    remove2P(prev);
             macro = createMacroSymbols(prev);
             while(strcmp(instruc,"ENDMACRO")!=0){
                 //TODO:check parameters
@@ -44,46 +46,40 @@ void createOutputFile(FILE* input, FILE* output, MacroTable* table ){
     char* instruc = (char*)calloc(100,sizeof(char));
     char* prev= (char*)calloc(100,sizeof(char)); 
     char* oper = (char*)calloc(100,sizeof(char)); 
+    int index=-1;
     while(fscanf(input,"%s",instruc) > 0){
-        strcpy(prev,instruc);
+        printf("%s\n",instruc);
+	if(IsKeyword(instruc)==2){//encontrada operacao com operando eh impresso seu mneomonico e seu operando 
+		fscanf(input,"%s",oper);
+		strcat(instruc," ");
+		strcat(instruc,oper);
+		fprintf(output,"%s\n",instruc);
+	}
+	if(IsKeyword(instruc)==1){//encotrada operacao sem operando eh impresso apenas seu mneomonico
+		fprintf(output,"%s\n",instruc);
+	}
+	
+	if(IsLabel(instruc)==1){
+		remove2P(instruc);
+		if(isMacro(table,instruc)==1){//encontrou uma definicao de macro
+			while(strcmp(instruc,"ENDMACRO")!=0){
+				fscanf(input,"%s",instruc);//eh descartada toda a sua definicao 
+	
+			}
+		
+		}
+		else{
+		    strcat(instruc,":");//eh um label de verdade 
+		    fprintf(output,"%s ",instruc);	
+		}
+	}
+	if(isMacro(table,instruc)==1){
+		PrintMacroTableInFile(output,table, findLabelName(table,instruc));
+	}
 
-        //threat macro instructions
-        if(strcmp(instruc,"BEGINMACRO")==0){
-            int index = findLabelName(table,prev);
-            //throw away macro def
-            while(strcmp(instruc,"ENDMACRO")!=0){
-                fscanf(input,"%s",instruc);
-            }
-            //ignore instruction ENDMACRO
-            fscanf(input,"%s",instruc);
-            //print macro table in output file 
-        } else {
-            if(IsKeyword(instruc)==2){
-                fscanf(input,"%s",oper);
-                strcat(instruc," ");
-                strcat(instruc, oper);
-                fprintf(output,"%s \n",instruc);
-            } else if (IsKeyword(instruc)==1){
-                fprintf(output,"%s\n",instruc);
-            }
-            if(IsLabel(instruc)==1){
-                fscanf(input,"%s",oper); 
-                //treat macro instructions
-                if(strcmp(oper,"BEGINMACRO")==0){
-                //treat labels
-                }
-                if(isMacro(table,oper)==1){
-                    PrintMacroTableInFile(output, table, index);
-                }
-            } else {
-                    strcat(instruc, " ");
-                    strcat(instruc, oper);
-                    fgets(oper,100,input); 
-                    strcat(instruc, oper);
-                    fprintf(output,"%s",instruc);
-            }
-        }
-           // fprintf(output,"%s",instruc);
+	
+
+		
     }
     
 }

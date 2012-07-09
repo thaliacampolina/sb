@@ -54,6 +54,20 @@ int IsLabel(char* str){
     return 0;
 }
 
+void remove2P(char *str)
+{
+     int i=0;
+     while(str[i]){
+	if(str[i]==':'){
+	    str[i]='\0';
+	}
+	i++;
+     }
+}
+
+
+
+
 int findLabelName(MacroTable* macro, char* name){
     int i = 0;
     for(i=0;i<macro->last_;i++){
@@ -65,15 +79,18 @@ int findLabelName(MacroTable* macro, char* name){
 }
 
 void PrintMacroTableInFile(FILE*output,MacroTable* macroTable, int i){
+    if(i==-1){
+	printf("MACRO NAO ENCONTRADA\n");
+    }
     int j;
     for(j=0;j<macroTable->macros_[i]->last_; j++){
-    printf("name: %s parameter: %s info: %s \n", macroTable->macros_[i]->name_ , macroTable->macros_[i]->parameter_ ,macroTable->macros_[i]->instruc_[j]);
-    fprintf(output,"%s\n",macroTable->macros_[i]->instruc_[j]);
+    	fprintf(output,"%s\n",macroTable->macros_[i]->instruc_[j]);
     }
 }
 
 int isMacro(MacroTable* macroTable, char* name){
     int i;
+    //strcat(name,":");
     for(i=0;i<macroTable->last_; i++){
         if(findLabelName(macroTable,name) != -1){
             return 1;
