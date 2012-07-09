@@ -15,7 +15,7 @@ void ReadFromFile(FILE* input,MacroTable* table){
             strcpy(prev,instruc);
         } else {
             //creates macro with its name (prev)
-	    //retirar 2 pontos do nome da macro
+	    //removes ":" from macro's name
 	    remove2P(prev);
             macro = createMacroSymbols(prev);
             while(strcmp(instruc,"ENDMACRO")!=0){
@@ -49,27 +49,32 @@ void createOutputFile(FILE* input, FILE* output, MacroTable* table ){
     int index=-1;
     while(fscanf(input,"%s",instruc) > 0){
         printf("%s\n",instruc);
-	if(IsKeyword(instruc)==2){//encontrada operacao com operando eh impresso seu mneomonico e seu operando 
+        //if isKeyword, its printed its mnemonic and its operand
+	if(IsKeyword(instruc)==2){
 		fscanf(input,"%s",oper);
 		strcat(instruc," ");
 		strcat(instruc,oper);
 		fprintf(output,"%s\n",instruc);
 	}
-	if(IsKeyword(instruc)==1){//encotrada operacao sem operando eh impresso apenas seu mneomonico
+        //if it doesnt have an operand, only its mnemonic is printed
+	if(IsKeyword(instruc)==1){
 		fprintf(output,"%s\n",instruc);
 	}
 	
 	if(IsLabel(instruc)==1){
 		remove2P(instruc);
-		if(isMacro(table,instruc)==1){//encontrou uma definicao de macro
+                //if a Macro definition is found
+		if(isMacro(table,instruc)==1){
 			while(strcmp(instruc,"ENDMACRO")!=0){
-				fscanf(input,"%s",instruc);//eh descartada toda a sua definicao 
+                                //ignore its definition
+				fscanf(input,"%s",instruc);
 	
 			}
 		
 		}
 		else{
-		    strcat(instruc,":");//eh um label de verdade 
+                    //is a real label
+		    strcat(instruc,":");
 		    fprintf(output,"%s ",instruc);	
 		}
 	}
