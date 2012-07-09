@@ -1,3 +1,5 @@
+#ifndef expansor_h
+#define expansor_h
 
 //macro structure
 typedef struct macroSymbols {
@@ -38,3 +40,5 @@ int isMacro(MacroTable* macroTable, char* name);
 int hasParameter(MacroTable* macroTable,char* name);
 //removes 2P from a Label or macro
 void remove2P(char *str);
+
+#endif
