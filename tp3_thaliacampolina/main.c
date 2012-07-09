@@ -15,24 +15,25 @@ void ReadFromFile(FILE* input,MacroTable* table){
             strcpy(prev,instruc);
         } else {
             //creates macro with its name (prev)
-	    //removes ":" from macro's name
+	    //remove ":" from the macro name
 	    remove2P(prev);
             macro = createMacroSymbols(prev);
             while(strcmp(instruc,"ENDMACRO")!=0){
-                //TODO:check parameters
                 fscanf(input,"%s",instruc);
                 //macro with parameter
                 if(IsKeyword(instruc)==0){
                     strcpy(macro->parameter_,instruc);
+		    macro->has_parameter_=1;
                 } else {
                     //check if theres an operand to insert in table
                     if(IsKeyword(instruc)==2 &&(strcmp(instruc,"ENDMACRO")!=0)){
                        fscanf(input,"%s",oper);
-                       strcat(instruc," ");
-                       strcat(instruc, oper);
-                      insertInstrucInTable(macro,instruc);
+		       
+                       insertInstrucInTable(macro,instruc,oper);
                     } else if(strcmp(instruc,"ENDMACRO")!=0) {
-                       insertInstrucInTable(macro,instruc);
+		       strcpy(oper,"\0");
+		       macro->has_parameter_=0;	
+                       insertInstrucInTable(macro,instruc,oper);
                     }
                 }
             }
@@ -45,41 +46,44 @@ void ReadFromFile(FILE* input,MacroTable* table){
 void createOutputFile(FILE* input, FILE* output, MacroTable* table ){
     char* instruc = (char*)calloc(100,sizeof(char));
     char* prev= (char*)calloc(100,sizeof(char)); 
+    char* parameter= (char*)calloc(100,sizeof(char));
     char* oper = (char*)calloc(100,sizeof(char)); 
     int index=-1;
     while(fscanf(input,"%s",instruc) > 0){
-        printf("%s\n",instruc);
-        //if isKeyword, its printed its mnemonic and its operand
+        // If the operation with its operand is found, its mnemonic and operand is printed
 	if(IsKeyword(instruc)==2){
 		fscanf(input,"%s",oper);
 		strcat(instruc," ");
 		strcat(instruc,oper);
 		fprintf(output,"%s\n",instruc);
 	}
-        //if it doesnt have an operand, only its mnemonic is printed
+        // If the operation without any operand is found, its mnemonic is printed
 	if(IsKeyword(instruc)==1){
 		fprintf(output,"%s\n",instruc);
 	}
-	
+        // finds a macro definition, and ignores its definition	
 	if(IsLabel(instruc)==1){
 		remove2P(instruc);
-                //if a Macro definition is found
-		if(isMacro(table,instruc)==1){
+		if(isMacro(table,instruc)==1||isMacro(table,instruc)==2){//find a macro definition
 			while(strcmp(instruc,"ENDMACRO")!=0){
-                                //ignore its definition
-				fscanf(input,"%s",instruc);
-	
+				fscanf(input,"%s",instruc);//ignores its definition 
 			}
 		
 		}
 		else{
-                    //is a real label
+                   //if is label:
 		    strcat(instruc,":");
 		    fprintf(output,"%s ",instruc);	
 		}
 	}
+        // prints macro whithout parameter in the output file
 	if(isMacro(table,instruc)==1){
 		PrintMacroTableInFile(output,table, findLabelName(table,instruc));
+	}
+        // prints macro with parameter
+	if(isMacro(table,instruc)==2){
+		fscanf(input,"%s",parameter);
+		PrintMacroTableInFileParameter(output,table, findLabelName(table,instruc),parameter);	
 	}
 
 	

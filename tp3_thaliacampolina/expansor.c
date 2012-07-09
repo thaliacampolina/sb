@@ -8,13 +8,16 @@ MacroSymbols* createMacroSymbols(char* name){
     macro->name_ = (char*) calloc(100,sizeof(char));
     macro->parameter_ = (char*) calloc(100,sizeof(char));
     macro->last_=0;
+    macro->has_parameter_=0;
     strcpy(macro->name_,name);
     return macro;
 }
 
-void insertInstrucInTable(MacroSymbols* macro, char* instruc){
+void insertInstrucInTable(MacroSymbols* macro, char* instruc,char* oper){
     macro->instruc_[macro->last_]=(char*) calloc(100,sizeof(char));
+    macro->oper_[macro->last_]=(char*) calloc(100,sizeof(char));
     strcpy(macro->instruc_[macro->last_],instruc);
+    strcpy(macro->oper_[macro->last_],oper);
     macro->last_++;
 }
 
@@ -34,15 +37,13 @@ void PrintTable(MacroTable* macroTable){
     int j = 0;
     for(i=0;i<macroTable->last_; i++){
         for(j=0;j<macroTable->macros_[i]->last_; j++){
-            printf("name: %s parameter: %s info: %s \n", macroTable->macros_[i]->name_ , macroTable->macros_[i]->parameter_ ,macroTable->macros_[i]->instruc_[j]);
+            printf("name: %s parameter: %s info: %s %s parametro:%d\n", macroTable->macros_[i]->name_ , 
+		macroTable->macros_[i]->parameter_ ,macroTable->macros_[i]->instruc_[j],
+			macroTable->macros_[i]->oper_[j],macroTable->macros_[i]->has_parameter_);
         }
     }
 }
 
-//char* FindMacroByName(){
-//}
-
-//Recognizes a Label
 int IsLabel(char* str){
     int i = 0;
     while(str[i]){
@@ -66,8 +67,6 @@ void remove2P(char *str)
 }
 
 
-
-
 int findLabelName(MacroTable* macro, char* name){
     int i = 0;
     for(i=0;i<macro->last_;i++){
@@ -84,8 +83,32 @@ void PrintMacroTableInFile(FILE*output,MacroTable* macroTable, int i){
     }
     int j;
     for(j=0;j<macroTable->macros_[i]->last_; j++){
-    	fprintf(output,"%s\n",macroTable->macros_[i]->instruc_[j]);
+    	fprintf(output,"%s %s\n",macroTable->macros_[i]->instruc_[j],macroTable->macros_[i]->oper_[j]);
     }
+}
+
+void PrintMacroTableInFileParameter(FILE*output,MacroTable* macroTable, int i,char* parameter){
+    if(i==-1){
+	printf("MACRO NAO ENCONTRADA\n");
+    }
+    int j;
+    for(j=0;j<macroTable->macros_[i]->last_; j++){
+	if(strcmp(macroTable->macros_[i]->parameter_,macroTable->macros_[i]->oper_[j])==0){
+	    fprintf(output,"%s %s\n",macroTable->macros_[i]->instruc_[j],parameter);
+	}
+	else{
+     	    fprintf(output,"%s %s\n",macroTable->macros_[i]->instruc_[j],macroTable->macros_[i]->oper_[j]);
+	}
+    }
+}
+
+
+int hasParameter(MacroTable* macroTable,char* name){
+
+    if(macroTable->macros_[findLabelName(macroTable,name)]->has_parameter_==1)
+	return 1;
+    else
+	return 0;
 }
 
 int isMacro(MacroTable* macroTable, char* name){
@@ -93,15 +116,15 @@ int isMacro(MacroTable* macroTable, char* name){
     //strcat(name,":");
     for(i=0;i<macroTable->last_; i++){
         if(findLabelName(macroTable,name) != -1){
-            return 1;
+            if(hasParameter(macroTable,name)==1)
+		return 2;
+	    else
+		return 1;
         }
     }
     return 0;
 }
 
-
-
-//Recognizes a keyword
 int IsKeyword(char* instruc){
     if(strcmp(instruc,"LOAD")==0) return 2;
     if(strcmp(instruc,"STORE")==0) return 2;
